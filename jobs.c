@@ -135,6 +135,148 @@ Jobs *DeleteOperacao(Jobs *listaDeJobs, int idOperacao, int idJob){
     return auxListaJobs;
 }
 
+void CalculaTempoMinimoOperacoesMaquinas(Jobs* inicio, int idJob){
+
+    Jobs *auxListaJobs = inicio;
+    Operacoes *auxOperacoes;
+    Maquinas *auxMaquinas;
+    Maquinas *nova = (Maquinas*)malloc(sizeof(Maquinas)); // Maquina auxiliar para imprimir a maquina
+
+    int tempoMinimo = 0;
+    int resultado = 0;
+    
+    while (auxListaJobs != NULL)
+    {
+        if(auxListaJobs->idJob == idJob){
+
+            auxOperacoes = auxListaJobs->operacoes;
+
+            while(auxOperacoes != NULL){ // Percorrer a lista de operações
+
+                tempoMinimo = 0; 
+                nova = NULL; // Maquina inicializa-se a NULL
+                auxMaquinas = auxOperacoes->maquinas;
+                
+                while(auxMaquinas != NULL){
+
+                    nova = auxMaquinas;
+
+
+                    if(auxMaquinas->tempo < tempoMinimo){
+                        nova->nome = auxMaquinas->nome; // Guardamos o nome da maquina
+                        tempoMinimo = auxMaquinas->tempo; // Guardamos o tempo da maquina
+                    }
+                    else if(tempoMinimo == 0){
+                        nova->nome = auxMaquinas->nome; // Guardamos o nome da maquina
+                        tempoMinimo = auxMaquinas->tempo; // Guardamos o tempo da maquina
+                    }
+
+                    auxMaquinas = auxMaquinas->proximoValor;
+                }
+                auxOperacoes = auxOperacoes->seguinte;
+                
+                resultado += tempoMinimo;
+                printf("\nTempo minimo: %d - maq: %s\n",tempoMinimo,nova->nome);
+
+            }
+        }
+        auxListaJobs = auxListaJobs->seguinte;
+    }
+
+    printf("\nResultado mínimo: %d\n",resultado);
+}
+
+void CalculaTempoMaximoOperacoesMaquinas(Jobs* inicio, int idJob){
+
+    Jobs *auxListaJobs = inicio;
+    Operacoes *auxOperacoes;
+    Maquinas *auxMaquinas;
+    Maquinas *nova = (Maquinas*)malloc(sizeof(Maquinas)); // Maquina auxiliar para imprimir a maquina
+
+    int tempoMaximo = 0;
+    int resultado = 0;
+    
+    while (auxListaJobs != NULL)
+    {
+        if(auxListaJobs->idJob == idJob){
+
+            auxOperacoes = auxListaJobs->operacoes;
+
+            while(auxOperacoes != NULL){ // Percorrer a lista de operações
+
+                tempoMaximo = 0; 
+                nova = NULL; // Maquina inicializa-se a NULL
+                auxMaquinas = auxOperacoes->maquinas;
+                
+                while(auxMaquinas != NULL){
+
+                    nova = auxMaquinas;
+
+                    if(auxMaquinas->tempo > tempoMaximo){
+                        nova->nome = auxMaquinas->nome;
+                        tempoMaximo = auxMaquinas->tempo;
+                    }
+                     else if(tempoMaximo == 0){
+                        nova->nome = auxMaquinas->nome;
+                        tempoMaximo = auxMaquinas->tempo;
+                    }
+                  
+
+                    auxMaquinas = auxMaquinas->proximoValor;
+                }
+                auxOperacoes = auxOperacoes->seguinte;
+                
+                resultado += tempoMaximo;
+                printf("\nTempo maximo: %d - maq: %s\n",tempoMaximo,nova->nome);
+
+            }
+        }
+        auxListaJobs = auxListaJobs->seguinte;
+    }
+
+    printf("\nResultado maximo: %d\n",resultado);
+
+}
+
+void CalculaMediaOperacoesMaquinas(Jobs* inicio, int idJob){
+    
+        Jobs *auxListaJobs = inicio;
+        Operacoes *auxOperacoes;
+        Maquinas *auxMaquinas;
+        int contador =0;
+        int media = 0;
+        int resultado = 0;
+        
+        while (auxListaJobs != NULL)
+        {
+            if(auxListaJobs->idJob == idJob){
+    
+                auxOperacoes = auxListaJobs->operacoes;
+    
+                while(auxOperacoes != NULL){ // Percorrer a lista de operações
+    
+                    media = 0; 
+                    auxMaquinas = auxOperacoes->maquinas;
+                    
+                    while(auxMaquinas != NULL){
+    
+                        media += auxMaquinas->tempo;
+                        auxMaquinas = auxMaquinas->proximoValor;
+                    }
+                    auxOperacoes = auxOperacoes->seguinte;
+                    contador++;
+                    resultado += media;
+                    printf("\nMedia: %d\n",media);
+    
+                }
+            }
+            auxListaJobs = auxListaJobs->seguinte;
+        }
+        
+        resultado = resultado/contador;
+        printf("\nResultado media: %d\n",resultado);
+    
+}
 
 void ListaJobs(Jobs *inicio) {
 

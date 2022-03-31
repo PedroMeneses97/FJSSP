@@ -44,7 +44,7 @@ Operacoes *InsereOperacao(Operacoes* inicio, Operacoes* nova) {
 /**
  * Recebe inicio da lista de operações , o ID da operação a inserir valores, a maquina que vamos inserir fazendo a verificação pelo ID
 */
-Operacoes *InsereMaquinasOperacao(Operacoes* inicioListaOperacoes,int idOperacao, Maquinas *maquinas,int idMaquina){
+Operacoes *InsereMaquinasOperacao(Operacoes* inicioListaOperacoes,int idOperacao, Maquinas *maquinas,int idMaquina,double tempo){
 
     Maquinas *novaMaquina = (Maquinas*)malloc(sizeof(Maquinas));
     Operacoes* auxOperacoes = inicioListaOperacoes;
@@ -63,7 +63,7 @@ Operacoes *InsereMaquinasOperacao(Operacoes* inicioListaOperacoes,int idOperacao
             // A nova máquina é igual a maquina por parametro.
             novaMaquina->cod = auxMaquinas->cod;
             novaMaquina->nome = auxMaquinas->nome;
-            novaMaquina->tempo = auxMaquinas->tempo;
+            novaMaquina->tempo = tempo;
         }
 
         // Percorrer o while.
@@ -102,22 +102,30 @@ Operacoes *InsereMaquinasOperacao(Operacoes* inicioListaOperacoes,int idOperacao
 
 
 Operacoes* alterarOperacao(Operacoes* operacao, int idOperacao, char nomeNovo[]) {
-    Operacoes* nodoAtual = operacao;
+    Operacoes* auxInicioLista = operacao;
     Operacoes* nodoAnterior;
 
-    while (nodoAtual != NULL && nodoAtual->idOperacao != idOperacao)
+
+    /**
+     * Corre a lista enquanto o inicio da lista(head) for diferente de NULL e o id da operação for diferente do id passado por parametro
+     * Se o inicio da lista for difernte de nulo após correr o ciclo while , atribuir um novo nome passado por parametro
+     * return do head.
+    */
+    while (auxInicioLista != NULL && auxInicioLista->idOperacao != idOperacao)
     {
-        nodoAnterior = nodoAtual;
-        nodoAtual = nodoAtual->seguinte;
+        nodoAnterior = auxInicioLista;
+        auxInicioLista = auxInicioLista->seguinte;
     }
 
-    if (nodoAtual != NULL)
+    if (auxInicioLista != NULL)
     {
-        nodoAtual->descricao = nomeNovo;
+        auxInicioLista->descricao = nomeNovo;
     }
 
     return(operacao);
 }
+
+
 
 
 void ListaOperacoes(Operacoes *inicio) {
@@ -131,7 +139,7 @@ void ListaOperacoes(Operacoes *inicio) {
         Maquinas *auxMaq = aux->maquinas;
 
 		while (auxMaq != NULL) {
-			printf("\t\tNome: %s \n", auxMaq->nome);
+			printf("\t\tNome: %s \n\t\t\tTempo: %f\n", auxMaq->nome,auxMaq->tempo);
 			auxMaq = auxMaq->proximoValor;
 		}
 

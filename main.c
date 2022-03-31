@@ -54,7 +54,7 @@ int main() {
     nova = CriaMaquina(8, "Maquina XPTO 8", 8);
 	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
 
-	// ListarMaquinas(listaMaquinas);
+	ListarMaquinas(listaMaquinas);
 
     // CalculaMinimoMaquina(inicio);
 	//// Lista o ultimo elemento que foi inserido na Lista das Maquinas.
@@ -66,32 +66,33 @@ int main() {
 
     novaOp = CriaOperacoes(1, "Operacao 1");
 	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,1);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,3);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,1,4);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,3,5);
 
     novaOp = CriaOperacoes(2, "Operacao 2");
 	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,2);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,4);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,2,4);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,4,5);
 
     novaOp = CriaOperacoes(3, "Operacao 3");
 	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,3);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,5);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,3,5);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,5,6);
 
     novaOp = CriaOperacoes(4, "Operacao 4");
 	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,4);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,5);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,6);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,7);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,8);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,4,5);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,5,5);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,6,4);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,7,5);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,8,9);
 
     // Operação para ser Eliminada
     novaOp = CriaOperacoes(5, "Operacao 5");
 	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
     alterarOperacao(listaOperacoes,5,"Operacao Nova"); // Altera nome da operação 5 para Operação nova
 
+    ListaOperacoes(listaOperacoes);
    
     
     novoJob = CriaJobs(1,"Job 1");
@@ -102,12 +103,15 @@ int main() {
     inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,4);
     inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,5); // Irá ser Eliminada
 
-    ListaJobs(inicioJobs);
+    // ListaJobs(inicioJobs);
 
     DeleteOperacao(inicioJobs,5,1); // Apagar a operação 5.
 
     ListaJobs(inicioJobs);
 
+    CalculaTempoMinimoOperacoesMaquinas(inicioJobs,1);
+    CalculaTempoMaximoOperacoesMaquinas(inicioJobs,1);
+    CalculaMediaOperacoesMaquinas(inicioJobs,1);
 
     // FICHEIROs
 
