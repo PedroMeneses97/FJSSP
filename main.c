@@ -10,14 +10,14 @@
 
 int main() {
 
+	setlocale(LC_ALL, "Portuguese");
 
 	// Variaveis
-
-	Maquinas *inicio = NULL;  // Lista null
+	Maquinas *listaMaquinas = NULL;   // Lista null
 	Maquinas* nova;
 
 	Operacoes* novaOp;
-	Operacoes *inicioLista = NULL;
+	Operacoes *listaOperacoes = NULL;
 
 	Jobs* novoJob;
 	Jobs *inicioJobs = NULL;
@@ -28,125 +28,91 @@ int main() {
 	* Criar Maquinas individualmente
 	* Insere a Maquina no inicio da lista
 	*/
-	nova = CriaMaquina(1, "Maquina 1",4);
-	inicio = InsereMaquinaInicio(inicio, nova);
+	printf("\t\t\n\n ##################### Listar Maquinas ##################\n\n\n");
 
-	nova = CriaMaquina(2, "Maquina 2",4);
-	inicio = InsereMaquinaInicio(inicio, nova);
+	nova = CriaMaquina(1, "Maquina XPTO 1", 1);
+    listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
 
-	nova = CriaMaquina(3, "Maquina 3",6);
-	inicio = InsereMaquinaInicio(inicio, nova);
+	nova = CriaMaquina(2, "Maquina XPTO 2", 2);
+    listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
 
-	nova = CriaMaquina(4, "Maquina 4",8);
-	inicio = InsereMaquinaInicio(inicio, nova);
+    nova = CriaMaquina(3, "Maquina XPTO 3", 3);
+	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
 
-	//Listar máquinas
-	printf("\nListar Máquinas\n");
-	ListarMaquinas(inicio);
+    nova = CriaMaquina(4, "Maquina XPTO 4", 4);
+	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
 
-	// Lista o ultimo elemento que foi inserido na Lista das Maquinas.
-	listarUltimo(inicio);
+    nova = CriaMaquina(5, "Maquina XPTO 5", 5);
+	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+
+    nova = CriaMaquina(6, "Maquina XPTO 6", 6);
+	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+    
+    nova = CriaMaquina(7, "Maquina XPTO 7", 7);
+	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+
+    nova = CriaMaquina(8, "Maquina XPTO 8", 8);
+	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+
+	// ListarMaquinas(listaMaquinas);
+
+    // CalculaMinimoMaquina(inicio);
+	//// Lista o ultimo elemento que foi inserido na Lista das Maquinas.
+	//listarUltimo(inicio);
 
 	/*---------------------------------------------------------------------------------------------------------------*/
 
-	printf("\n\nListar Operações\n");
+	printf("\t\t\n\n ##################### Listar Operacoes ##################\n\n\n");
+
+    novaOp = CriaOperacoes(1, "Operacao 1");
+	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,1);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,3);
+
+    novaOp = CriaOperacoes(2, "Operacao 2");
+	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,2);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,4);
+
+    novaOp = CriaOperacoes(3, "Operacao 3");
+	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,3);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,5);
+
+    novaOp = CriaOperacoes(4, "Operacao 4");
+	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,4);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,5);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,6);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,7);
+    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,8);
+
+    // Operação para ser Eliminada
+    novaOp = CriaOperacoes(5, "Operacao 5");
+	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
+    alterarOperacao(listaOperacoes,5,"Operacao Nova"); // Altera nome da operação 5 para Operação nova
+
+   
+    
+    novoJob = CriaJobs(1,"Job 1");
+    inicioJobs = InsereJobs(inicioJobs,novoJob);
+    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,1);
+    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,2);
+    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,3);
+    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,4);
+    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,5); // Irá ser Eliminada
+
+    ListaJobs(inicioJobs);
+
+    DeleteOperacao(inicioJobs,5,1); // Apagar a operação 5.
+
+    ListaJobs(inicioJobs);
 
 
-	
-	/* OPERAÇÕES */
-	novaOp = CriaOperacoes(1, "Operacao 1",  inicio);
-	inicioLista = InsereOperacao(inicioLista, novaOp);
-	
-	novaOp = CriaOperacoes(2, "Operação 2", inicio);
-	inicioLista = InsereOperacao(inicioLista, novaOp);
+    // FICHEIROs
 
-
-	novaOp = CriaOperacoes(3, "Operação 3", inicio);
-	inicioLista = InsereOperacao(inicioLista, novaOp);
-	
-	novaOp = CriaOperacoes(4, "Operação para apagar", inicio);
-	inicioLista = InsereOperacao(inicioLista, novaOp);
-
-	
-
-	//Listar máquinas
-	ListaOperacoes(inicioLista);
-
-
-	//printf("\n---------------\n APAGAR");
-	//removerOperacao(inicioLista, 4);
-	//ListaOperacoes(inicioLista);
-	//
-	
-	/*---------------------------------------------------------------------------------------------------------------*/
-
-	printf("\n\nListar Jobs\n");
-	
-	novoJob = CriaJobs(1, "Job Um", inicioLista);
-	inicioJobs = InsereJobs(inicioJobs, novoJob);
-
-	novoJob = CriaJobs(2, "Job Dois", inicioLista);
-	inicioJobs = InsereJobs(inicioJobs, novoJob);
-
-	ListaJobs(inicioJobs);
-
-
-
-
-	printf("\n  ################################## IMPRIMIR PARA O FICHEIRO ######################################## \n");
-	/* ################################## IMPRIMIR PARA O FICHEIRO ########################################*/
-
-	FILE *fptr;
-	char chr;
-
-	// Verica se o caminho do ficheiro é válido
-	if ((fptr = fopen("D:\\teste.txt", "r")) == NULL) {
-		printf("Error! opening file");
-
-		// Se for nulo, sai automaticamente.
-		exit(1);
-	}
-	else {
-		// Definir que a partir deste momento vamos escrever no ficheiro
-		fptr = fopen("D:\\teste.txt", "w");
-
-		Maquinas *auxiliarFicheiro = inicio;
-		while (auxiliarFicheiro != NULL) {
-			fprintf(fptr, "%d - %s - %f\n", auxiliarFicheiro->cod,auxiliarFicheiro->nome,auxiliarFicheiro->tempo);
-			auxiliarFicheiro = auxiliarFicheiro->proximoValor;
-		}
-	
-		fclose(fptr);
-
-	}
-
-
-	/* LER FICHEIRO */
-
-	if ((fptr = fopen("D:\\teste.txt", "r")) == NULL) {
-		printf("Error! opening file");
-
-		// Program exits if the file pointer returns NULL.
-		exit(1);
-	}
-	else {
-		fptr = fopen("D:\\teste.txt", "r");
-		Maquinas *auxiliarFicheiro = inicio;
-		chr = getc(fptr);
-	
-		while (chr != EOF)
-		{
-			printf("%c", chr);
-			chr = fgetc(fptr);
-		}
-		
-		
-		fclose(fptr);
-
-	}
-
-
-
+    EscreveFicheiro(inicioJobs);
+    LerFicheiro();
 
 	return (0);
 }

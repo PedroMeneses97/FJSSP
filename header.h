@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_DEPRECATE
 
 #include <stdlib.h>
 #include <string.h>
@@ -37,10 +38,22 @@ typedef struct Jobs {
 } Jobs;
 
 
+/**
+ * Função para criar Maquina
+ * 
+*/
+Maquinas* CriaMaquina(int cod, char *nome,double tempo);
 
-Maquinas *CriaMaquina(int cod, char *nome,double tempo);
+
+/**
+*	Função que insere maquina na lista
+*	recebe como parametro o inicio da lista e a nova maquina a ser inserida
+*/
 Maquinas* InsereMaquinaInicio(Maquinas* inicio, Maquinas* nova);
 Maquinas* InsereMaquinaFim(Maquinas* inicio, Maquinas* nova);
+
+
+Maquinas* CalculaMinimoMaquina(Maquinas *inicio);
 
 
 /**
@@ -48,9 +61,6 @@ Função que recebe como parametro o inicio da lista
 Corre até que o valor dado como parametro for == NULL
 */
 void ListarMaquinas(Maquinas *inicio);
-
-
-
 
 /**
 Função para listar o ultimo elemento da lista.
@@ -62,26 +72,26 @@ void listaUltimo(Maquinas *inicio);
 
 
 
-/**
-Função que recebe como parametro  uma maquina
-Corre a função a procurar o id da maquina que irá ser introduzida
-*/
-Maquinas* ProcuraMaquina(Maquinas* maquina, int cod);
-
-
-Maquinas* TempoMaquina(Maquinas* maquina);
-
 /* ############################################################# CRIAÇÃO DE OPERAÇÕES ############################################################# */
 
-Operacoes *CriaOperacoes(int id, char *desc,Maquinas *maquinas);
-Operacoes *InsereOperacao(Operacoes* inicio, Operacoes* nova);
+Operacoes* CriaOperacoes(int id, char *desc);
+Operacoes* InsereOperacao(Operacoes* inicio, Operacoes* nova);
+Operacoes* alterarOperacao(Operacoes* operacao, int idOperacao, char nomeNovo[]);
+Operacoes *InsereMaquinasOperacao(Operacoes* inicio,int id, Maquinas *maquinas,int idMaquina);
+
+/**
+Função que recebe como parametro o inicio da lista
+Corre até que o valor dado como parametro for == NULL
+*/
 void ListaOperacoes(Operacoes *inicio);
 
 
 /* ############################################################# CRIAÇÃO DE JOBS ############################################################# */
 
-Jobs *CriaJobs(int idJob, char *nome, Operacoes *operacoes);
-Jobs *InsereJobs(Jobs* inicio, Operacoes* nova);
+Jobs* CriaJobs(int idJob, char *nome);
+Jobs* InsereJobs(Jobs* inicio, Jobs* nova);
+Jobs *InsereOperacaoJob(Jobs* inicioListaJobs,int idJob, Operacoes *operacoes,int idOperacao);
+
 void ListaJobs(Jobs *inicio);
 
 
@@ -92,5 +102,9 @@ void ListaJobs(Jobs *inicio);
 
 
 
-/* apagar */
-Operacoes *removerOperacao(Operacoes *inicio, int id);
+Jobs *DeleteOperacao(Jobs *listaDeJobs, int idOperacao, int idJob);
+
+
+
+void EscreveFicheiro(Jobs* listaJobs);
+void LerFicheiro();
