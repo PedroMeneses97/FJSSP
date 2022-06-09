@@ -1,9 +1,4 @@
 #define _CRT_SECURE_NO_DEPRECATE
-
-#include <locale.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include "header.h"
 
 
@@ -20,103 +15,68 @@ int main() {
 	Operacoes *listaOperacoes = NULL;
 
 	Jobs* novoJob;
+    Jobs* listaApagada = NULL;
 	Jobs *inicioJobs = NULL;
+    Jobs* listaJobs = NULL;
 
+    JobsBin *raizes = NULL;
+    JobsBin *raizesMaq = NULL;
 
+    //alterarOperacao(listaOperacoes,5,"Operacao Nova"); // Altera nome da operação 5 para Operação nova
 
-	/**
-	* Criar Maquinas individualmente
-	* Insere a Maquina no inicio da lista
-	*/
-	printf("\t\t\n\n ##################### Listar Maquinas ##################\n\n\n");
+    /* Listar Máquinas a partir de um ficheiro */
+    listaMaquinas = GetDataMaquina("base.txt");
+    // ListarMaquinas(listaMaquinas);
 
-	nova = CriaMaquina(1, "Maquina XPTO 1", 1);
-    listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+    /* Listar Operações a partir de um ficheiro */
+    listaOperacoes = GetDataOperacoes("teste2.txt");
+    //ListaOperacoes(listaOperacoes);
+  
 
-	nova = CriaMaquina(2, "Maquina XPTO 2", 2);
-    listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+    /* Inserir mais dados no ficheiro antes de imprimir */
+    // EscreveNovaInfoFicheiro(10,1,1,1.000);
+    // EscreveNovaInfoFicheiro(10,2,1,1.000);
+    EscreveNovaInfoFicheiro(11,3,1,1.000);
 
-    nova = CriaMaquina(3, "Maquina XPTO 3", 3);
-	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+    /* Lista os Jobs a partir de um ficheiro */
+    listaJobs = GetDataJobs();
 
-    nova = CriaMaquina(4, "Maquina XPTO 4", 4);
-	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
-
-    nova = CriaMaquina(5, "Maquina XPTO 5", 5);
-	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
-
-    nova = CriaMaquina(6, "Maquina XPTO 6", 6);
-	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
     
-    nova = CriaMaquina(7, "Maquina XPTO 7", 7);
-	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+    //EditaOperacaoJob(listaJobs, 11,3, "NOVA");
+    //ListaOperacaoJobIndividual(listaJobs,11);
 
-    nova = CriaMaquina(8, "Maquina XPTO 8", 8);
-	listaMaquinas = InsereMaquinaInicio(listaMaquinas,nova);
+    //ListaNomesOperacoes(listaJobs);
 
-	ListarMaquinas(listaMaquinas);
+    listaJobs = RemoveOperacaoJob(listaJobs,1,1);
 
-    // CalculaMinimoMaquina(inicio);
-	//// Lista o ultimo elemento que foi inserido na Lista das Maquinas.
-	//listarUltimo(inicio);
+    // listaJobs = ApagaJob(listaJobs,10);
 
-	/*---------------------------------------------------------------------------------------------------------------*/
+    // Função que guarda o estado atual da lista após a remoção do Job
+    //EscreveFicheiroJobs("teste2.txt",listaJobs);
 
-	printf("\t\t\n\n ##################### Listar Operacoes ##################\n\n\n");
+    /* Função que Apaga um Job */
+    //listaJobs = ApagaJob(listaJobs,1);
 
-    novaOp = CriaOperacoes(1, "Operacao 1");
-	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,1,4);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,1,listaMaquinas,3,5);
 
-    novaOp = CriaOperacoes(2, "Operacao 2");
-	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,2,4);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,2,listaMaquinas,4,5);
 
-    novaOp = CriaOperacoes(3, "Operacao 3");
-	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,3,5);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,3,listaMaquinas,5,6);
+    //ListaJobs(listaJobs);
 
-    novaOp = CriaOperacoes(4, "Operacao 4");
-	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,4,5);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,5,5);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,6,4);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,7,5);
-    listaOperacoes = InsereMaquinasOperacao(listaOperacoes,4,listaMaquinas,8,9);
 
-    // Operação para ser Eliminada
-    novaOp = CriaOperacoes(5, "Operacao 5");
-	listaOperacoes = InsereOperacao(listaOperacoes, novaOp);
-    alterarOperacao(listaOperacoes,5,"Operacao Nova"); // Altera nome da operação 5 para Operação nova
+    /* Lista os Jobs da arvore binária*/
+    raizes = GetData("base.txt");
+    //raizes = GetTudoFicheiro("base.txt");
 
-    ListaOperacoes(listaOperacoes);
-   
-    
-    novoJob = CriaJobs(1,"Job 1");
-    inicioJobs = InsereJobs(inicioJobs,novoJob);
-    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,1);
-    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,2);
-    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,3);
-    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,4);
-    inicioJobs = InsereOperacaoJob(inicioJobs,1,listaOperacoes,5); // Irá ser Eliminada
+    /* Função que Calcula o Tempo Mínimo */
+    //CalculaTempoMinimoOperacoesMaquinas(listaJobs,1);
 
-    // ListaJobs(inicioJobs);
+    /* Função que Calcula o Tempo Máximo */
+    // CalculaTempoMaximoOperacoesMaquinas(inicioJobs,1);
 
-    DeleteOperacao(inicioJobs,5,1); // Apagar a operação 5.
+    /* Função que Calcula a Média */
+    // CalculaMediaOperacoesMaquinas(inicioJobs,1);
 
-    ListaJobs(inicioJobs);
-
-    CalculaTempoMinimoOperacoesMaquinas(inicioJobs,1);
-    CalculaTempoMaximoOperacoesMaquinas(inicioJobs,1);
-    CalculaMediaOperacoesMaquinas(inicioJobs,1);
-
-    // FICHEIROs
-
-    EscreveFicheiro(inicioJobs);
-    LerFicheiro();
+    //ListaJobBinario(raizes);
+  
 
 	return (0);
 }
